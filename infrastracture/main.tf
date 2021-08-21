@@ -15,16 +15,28 @@ terraform {
   required_version = ">= 0.14.9"
 }
 
-provider "aws" {
-  profile = "default"
-  region = "eu-west-2"
+module "common" {
+  source = "./common"
+  providers = {
+    aws.dev = aws
+    aws.prod = aws.prod
+  }
 }
 
-resource "aws_instance" "app_server" {
-  ami = "ami-0194c3e07668a7e36"
-  instance_type = "t2.micro"
+module "dev" {
+  source = "./dev"
+  vpc_id = module.common.dev_vpc_id
+  azs = local.dev.azs
+  providers = {
+    aws.dev = aws
+  }
+}
 
-  tags = {
-    Name = "ExampleAppServerInstance"
+module "prod" {
+  source = "./prod"
+  vpc_id = module.common.prod_vpc_id
+  azs = local.prod.azs
+  providers = {
+    aws.prod = aws.prod
   }
 }
