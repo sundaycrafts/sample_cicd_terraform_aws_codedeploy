@@ -2,7 +2,7 @@ resource "aws_subnet" "dmz" {
   provider = aws.dev
 
   vpc_id = var.vpc_id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.1.1.0/24"
   availability_zone = var.azs
 
   tags = {
@@ -15,7 +15,7 @@ resource "aws_subnet" "app" {
   provider = aws.dev
 
   vpc_id = var.vpc_id
-  cidr_block = "10.0.101.0/24"
+  cidr_block = "10.1.101.0/24"
   availability_zone = var.azs
 
   tags = {
@@ -28,7 +28,7 @@ resource "aws_subnet" "datastore" {
   provider = aws.dev
 
   vpc_id = var.vpc_id
-  cidr_block = "10.0.102.0/24"
+  cidr_block = "10.1.102.0/24"
   availability_zone = var.azs
 
   tags = {
