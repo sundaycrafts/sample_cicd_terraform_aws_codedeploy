@@ -5,7 +5,7 @@ resource "aws_lb" "frontend" {
   security_groups = [aws_security_group.elb_frontend.id]
   ip_address_type = "ipv4"
 
-  subnets = [aws_subnet.app.id]
+  subnets = [aws_subnet.app1.id, aws_subnet.app2.id]
 
   tags = {
     Name = "frontend"
