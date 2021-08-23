@@ -7,7 +7,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t2.micro"
   key_name = aws_key_pair.app1.key_name
 
-  security_groups = [
+  vpc_security_group_ids = [
     aws_default_security_group.default.id]
 
   tags = {
@@ -24,7 +24,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   key_name = aws_key_pair.bastion.key_name
 
-  security_groups = [
+  vpc_security_group_ids = [
     aws_default_security_group.default.id,
     aws_security_group.bastion.id]
 
