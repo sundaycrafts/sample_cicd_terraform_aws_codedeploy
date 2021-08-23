@@ -1,4 +1,4 @@
-resource "aws_instance" "app_server" {
+resource "aws_instance" "app1" {
   provider = aws.dev
 
   subnet_id = aws_subnet.app1.id
@@ -11,7 +11,7 @@ resource "aws_instance" "app_server" {
     aws_default_security_group.default.id]
 
   tags = {
-    Name = "app-server"
+    Name = "app1"
   }
 }
 
