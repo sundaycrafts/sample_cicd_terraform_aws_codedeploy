@@ -3,7 +3,7 @@ resource "aws_instance" "app1" {
 
   subnet_id = aws_subnet.app1.id
 
-  ami = "ami-09e67e426f25ce0d7"
+  ami = local.ami.ubuntu20042lts
   instance_type = "t2.micro"
   key_name = aws_key_pair.app1.key_name
 
@@ -20,7 +20,7 @@ resource "aws_instance" "bastion" {
 
   subnet_id = aws_subnet.dmz.id
 
-  ami = "ami-09e67e426f25ce0d7"
+  ami = local.ami.ubuntu20042lts
   instance_type = "t2.micro"
   key_name = aws_key_pair.bastion.key_name
 
