@@ -17,3 +17,7 @@ output "bastion_public_ip" {
 output "app1_private_ip" {
   value = aws_instance.app1.private_ip
 }
+
+output "app2_private_ip" {
+  value = aws_instance.app2.private_ip
+}
