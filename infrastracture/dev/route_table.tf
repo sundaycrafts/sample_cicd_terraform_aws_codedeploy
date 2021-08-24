@@ -26,7 +26,7 @@ resource "aws_route_table" "dmz" {
 }
 
 resource "aws_route_table_association" "dmz" {
-  subnet_id      = aws_subnet.dmz.id
+  subnet_id      = aws_subnet.dmz1.id
   route_table_id = aws_route_table.dmz.id
 }
 

@@ -1,4 +1,4 @@
-resource "aws_subnet" "dmz" {
+resource "aws_subnet" "dmz1" {
   provider = aws.dev
 
   vpc_id = var.vpc_id
@@ -7,7 +7,21 @@ resource "aws_subnet" "dmz" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "dmz"
+    Name = "dmz1"
+    Private = "false"
+  }
+}
+
+resource "aws_subnet" "dmz2" {
+  provider = aws.dev
+
+  vpc_id = var.vpc_id
+  cidr_block = "10.1.2.0/24"
+  availability_zone = var.azs[1]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "dmz2"
     Private = "false"
   }
 }
