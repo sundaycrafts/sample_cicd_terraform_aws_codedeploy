@@ -3,7 +3,7 @@ resource "aws_instance" "app1" {
 
   subnet_id = aws_subnet.app1.id
 
-  ami = local.ami.ubuntu20042lts
+  ami = local.ami.ubuntucustomnode
   instance_type = "t2.micro"
   key_name = aws_key_pair.app1.key_name
 
