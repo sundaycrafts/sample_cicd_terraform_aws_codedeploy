@@ -10,3 +10,7 @@ variable "azs" {
 variable "codedeploy_instance_profile_name" {
   type = string
 }
+
+variable "codedeploy_iam_role_arn" {
+  type = string
+}

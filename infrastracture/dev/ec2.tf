@@ -14,6 +14,7 @@ resource "aws_instance" "app1" {
 
   tags = {
     Name = "app1"
+    CodedeployGroup = "app"
   }
 }
 
@@ -33,6 +34,7 @@ resource "aws_instance" "app2" {
 
   tags = {
     Name = "app2"
+    CodedeployGroup = "app"
   }
 }
 

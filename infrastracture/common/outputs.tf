@@ -17,3 +17,7 @@ output "prod_cidr_block" {
 output "codedeploy_instance_profile_name" {
   value = aws_iam_instance_profile.codedeploy_ec2_instance_profile.name
 }
+
+output "codedeploy_iam_role_arn" {
+  value = aws_iam_role.codedeploy_service_role.arn
+}

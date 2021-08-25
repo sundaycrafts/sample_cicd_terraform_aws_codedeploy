@@ -28,6 +28,7 @@ module "dev" {
   vpc_id = module.common.dev_vpc_id
   azs = local.dev.azs
   codedeploy_instance_profile_name = module.common.codedeploy_instance_profile_name
+  codedeploy_iam_role_arn = module.common.codedeploy_iam_role_arn
   providers = {
     aws.dev = aws
   }
