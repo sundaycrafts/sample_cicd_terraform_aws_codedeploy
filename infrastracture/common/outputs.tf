@@ -13,3 +13,7 @@ output "prod_vpc_id" {
 output "prod_cidr_block" {
   value = aws_vpc.prod.cidr_block
 }
+
+output "codedeploy_instance_profile_name" {
+  value = aws_iam_instance_profile.codedeploy_ec2_instance_profile.name
+}

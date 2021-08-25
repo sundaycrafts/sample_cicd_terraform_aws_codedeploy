@@ -27,6 +27,7 @@ module "dev" {
   source = "./dev"
   vpc_id = module.common.dev_vpc_id
   azs = local.dev.azs
+  codedeploy_instance_profile_name = module.common.codedeploy_instance_profile_name
   providers = {
     aws.dev = aws
   }

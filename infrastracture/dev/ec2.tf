@@ -7,6 +7,8 @@ resource "aws_instance" "app1" {
   instance_type = "t2.micro"
   key_name = aws_key_pair.app1.key_name
 
+  iam_instance_profile = var.codedeploy_instance_profile_name
+
   vpc_security_group_ids = [
     aws_default_security_group.default.id]
 
@@ -23,6 +25,8 @@ resource "aws_instance" "app2" {
   ami = local.ami.ubuntucustomnode
   instance_type = "t2.micro"
   key_name = aws_key_pair.app2.key_name
+
+  iam_instance_profile = var.codedeploy_instance_profile_name
 
   vpc_security_group_ids = [
     aws_default_security_group.default.id]
