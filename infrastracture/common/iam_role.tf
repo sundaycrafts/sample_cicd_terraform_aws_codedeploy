@@ -27,18 +27,18 @@ resource "aws_iam_role_policy_attachment" "codedeploy" {
 
 resource "aws_iam_role" "codedeploy_ec2_instance_profile" {
   assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ec2.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": {
+              "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+      }
+  ]
 }
 EOF
 }
