@@ -17,6 +17,8 @@ terraform {
 
 module "common" {
   source = "./common"
+  region_dev = local.dev.region
+  region_prod = local.prod.region
   providers = {
     aws.dev = aws
     aws.prod = aws.prod

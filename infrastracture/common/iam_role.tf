@@ -25,7 +25,47 @@ resource "aws_iam_role_policy_attachment" "codedeploy" {
   policy_arn = data.aws_iam_policy.AWSCodeDeployRole.arn
 }
 
+// https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html
 resource "aws_iam_role" "codedeploy_ec2_instance_profile" {
+  name = "codedeploy_ec2_instance_profile"
+
+  inline_policy {
+    name = "SSMInstanceProfileS3Policy"
+    policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+        "Effect": "Allow",
+        "Action": "s3:GetObject",
+        "Resource": [
+            "arn:aws:s3:::aws-ssm-${var.region_dev}/*",
+            "arn:aws:s3:::aws-windows-downloads-${var.region_dev}/*",
+            "arn:aws:s3:::amazon-ssm-${var.region_dev}/*",
+            "arn:aws:s3:::amazon-ssm-packages-${var.region_dev}/*",
+            "arn:aws:s3:::region-birdwatcher-prod/*",
+            "arn:aws:s3:::aws-ssm-distributor-file-${var.region_dev}/*",
+            "arn:aws:s3:::aws-ssm-document-attachments-${var.region_dev}/*",
+            "arn:aws:s3:::patch-baseline-snapshot-${var.region_dev}/*"
+        ]
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:PutObjectAcl",
+            "s3:GetEncryptionConfiguration"
+        ],
+        "Resource": [
+          "${aws_s3_bucket.codedeploy_asset.arn}"
+        ]
+    }
+  ]
+}
+EOF
+  }
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",

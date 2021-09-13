@@ -3,6 +3,16 @@ data "aws_iam_policy" "AWSCodeDeployRole" {
   arn = "" // arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
 }
 
+data "aws_iam_policy" "ResourceGroupsandTagEditorFullAccess" {
+  name = "ResourceGroupsandTagEditorFullAccess"
+  arn = ""
+}
+
+data "aws_iam_policy" "AmazonSSMFullAccess" {
+  name = "AmazonSSMFullAccess"
+  arn = ""
+}
+
 data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
   name = "AmazonSSMManagedInstanceCore"
   arn = "" // arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
