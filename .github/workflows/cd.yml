@@ -57,7 +57,7 @@ jobs:
         run: echo "::set-output name=name::revision-${{ github.sha }}.zip"
 
       - name: Push S3
-        run: aws deploy push --s3-location s3://codedeploy-asset/${{ steps.asset_name.outputs.name }}
+        run: aws deploy push --application-name app --s3-location s3://codedeploy-asset/${{ steps.asset_name.outputs.name }}
 
       - name: Deploy
         run: |
