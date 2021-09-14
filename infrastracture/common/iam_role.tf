@@ -1,3 +1,4 @@
+// used for service role for codedeploy https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials-wordpress-deploy-application.html
 resource "aws_iam_role" "codedeploy_service_role" {
   name = "CodeDeployServiceRole"
 
@@ -25,7 +26,9 @@ resource "aws_iam_role_policy_attachment" "codedeploy" {
   policy_arn = data.aws_iam_policy.AWSCodeDeployRole.arn
 }
 
-// https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html
+// used for codedeploy agent in EC2 instance https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-iam-instance-profile.html
+// and for installing codedeploy agent via ssm https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-ssm.html
+// see also https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html
 resource "aws_iam_role" "codedeploy_ec2_instance_profile" {
   name = "codedeploy_ec2_instance_profile"
 
