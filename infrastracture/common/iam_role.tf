@@ -45,7 +45,7 @@ resource "aws_iam_role" "codedeploy_ec2_instance_profile" {
             "s3:List*"
         ],
         "Resource": [
-          "${aws_s3_bucket.codedeploy_asset.arn}",
+          "${aws_s3_bucket.codedeploy_asset.arn}/*",
           "arn:aws:s3:::aws-codedeploy-${var.region_dev}/*"
         ]
     }
