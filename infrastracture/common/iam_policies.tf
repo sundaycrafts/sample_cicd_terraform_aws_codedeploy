@@ -19,6 +19,7 @@ data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
 }
 
 resource "aws_iam_policy" "codedeploy" {
+  name = "CodeDeployPolicy"
   policy = <<EOF
 {
   "Version": "2012-10-17",
