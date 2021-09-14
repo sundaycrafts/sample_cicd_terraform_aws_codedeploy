@@ -1,0 +1,78 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_app:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Dependencies
+        run: yarn --production=false --frozen-lockfile
+
+      - uses: actions/cache@v2
+        with:
+          path: .
+          key: app-${{ github.sha }}
+
+      - name: Build
+        run: yarn build
+
+  deployment:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 0
+          format: 'YYYYMMDDHHmmss'
+
+      - name: Varidate appspec.yml
+        run: make validateCodedeployConfig
+
+      - name: Configure AWS Credential
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Restore built files
+        uses: actions/cache@v2
+        with:
+          path: ./app
+          key: app-${{ github.sha }}
+
+      - name: asset name
+        id: asset_name
+        run: echo "::set-output name=name::app-${{ github.sha }}-${{ steps.time.outputs.time }}.zip"
+
+      - name: Push S3
+        run: aws deploy push --s3-location s3://codedeploy-asset/${{ steps.asset_name.outputs.name }}
+
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name app \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name app \
+            --s3-location bucket=codedeploy-asset,bundleType=zip,key=${{ steps.asset_name.outputs.name }}
