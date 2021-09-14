@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "echo 'nothing to do'"
+  },
   "dependencies": {
     "koa": "^2.13.1"
   }

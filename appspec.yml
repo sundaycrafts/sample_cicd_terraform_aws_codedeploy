@@ -3,4 +3,9 @@ os: linux
 files:
  - source: app
    destination: /home/ubuntu/app
+file_exists_behavior: OVERWRITE
 hooks:
+  ApplicationStart:
+    - location: scripts/application_start.sh
+      timeout: 15
+      runas: ubuntu
