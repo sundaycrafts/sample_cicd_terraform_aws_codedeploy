@@ -41,6 +41,9 @@ jobs:
       - build_app
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Configure AWS Credential
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -51,7 +54,7 @@ jobs:
       - name: Restore built files
         uses: actions/cache@v2
         with:
-          path: .
+          path: app
           key: app-${{ github.sha }}
 
       - name: asset name
