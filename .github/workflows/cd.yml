@@ -39,13 +39,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Get Time
-        id: time
-        uses: nanzm/get-time-action@v1.1
-        with:
-          timeZone: 0
-          format: 'YYYYMMDDHHmmss'
-
       - name: Varidate appspec.yml
         run: make validateCodedeployConfig
 
@@ -64,7 +57,7 @@ jobs:
 
       - name: asset name
         id: asset_name
-        run: echo "::set-output name=name::app-${{ github.sha }}-${{ steps.time.outputs.time }}.zip"
+        run: echo "::set-output name=name::revision-${{ github.sha }}.zip"
 
       - name: Push S3
         run: aws deploy push --s3-location s3://codedeploy-asset/${{ steps.asset_name.outputs.name }}
